@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card mb-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-header">CALCULATORS</div>
+                </div>
+
+                <!-- Greatest Common Divisor -->
+                <div class=" col-6">
+                    <h5>Greatest Common Divisor</h5>
+                    <div class="col-12">
+                        <label for="gcd_n1">First Number</label>
+                        <input type="number" id="gcd_n1" />
+                    </div>
+                    <div class="col-12">
+                        <label for="gcd_n2">Second Number</label>
+                        <input type="number" id="gcd_n2" />
+                    </div>
+                </div>
+                <div class=" col-6">
+                    <div id="gcd_ans">
+                        No input
+                    </div>
+                </div>
+
+                <!-- Fibonacci -->
+                <div class=" col-6">
+                    <h5>Fibonacci Series</h5>
+                    <div class="col-12">
+                        <label for="fib_n"> Type your Fibonacci Position</label>
+                        <input type="number" id="fib_n" min="2" />
+                    </div>
+
+                </div>
+                <div class=" col-6">
+                    <div id="fib_ans">
+                        N<sup>th</sup> Fibonacci Sequence
+                    </div>
+                </div>
+
+
+                <!-- Prime Numbers Between -->
+                <div class=" col-6">
+                    <h5>Prime Numbers Between</h5>
+                    <div class="col-12">
+                        <label for="min_max2"> Min or Max Range </label>
+                        <input type="number" id="min_max2" min="0" />
+                    </div>
+                    <div class="col-12">
+                        <label for="min_max1">Min or Max Range</label>
+                        <input type="number" id="min_max1" min="0" />
+                    </div>
+                </div>
+                <div class=" col-6">
+                    <div id="pnb_ans">
+                        No Range Specified
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js">
+    </script>
+    <script>
+
+        // ! Greatest Common Divisor
+
+        function gcd(a, b) {
+            let gcd;
+            let c = Math.min(a, b);
+            for (i = 0; i < c + 1; i++) {
+                let ans1 = a / i;
+                let ans2 = b / i;
+
+                if (ans1 == Math.round(ans1) && ans2 == Math.round(ans2)) {
+                    gcd = i;
+                }
+            }
+            return gcd;
+
+        }
+
+
+        $(document).ready(function () {
+            $('#gcd_n1').on('input', call_gcd)
+            $('#gcd_n2').on('input', call_gcd)
+            function call_gcd() {
+                if ($('#gcd_n1').val().replace(/^\s+|\s+$/g, "").length != 0 && $('#gcd_n2').val().replace(/^\s+|\s+$/g, "").length != 0) {
+                    let an = $('#gcd_n1').val();
+                    let bn = $('#gcd_n2').val();
+                    // console.log(gcd(an, bn));
+                    let gcd_ans = gcd(an, bn);
+                    let intro = 'The Greatest Common Divisor of <span>' + an + ' </span>and <span>' + bn + "</span> is ";
+                    $('#gcd_ans').html(intro + "<span>" + gcd_ans + "</span>");
+                } else {
+                    $('#gcd_ans').html("No or invalid input");
+                }
+
+            }
+
+        })
+
+    </script>
+
+    <script>
+        /*
+        function f(x) {
+            let ans = 1;
+            for (v = 0; v < x; v++) {
+                ans *= x - v;
+            }
+            return ans;
+        }
+        console.log(f(3))
+        */
+
+    </script>
+
+    <script>
+
+        function fab(x) {
+            let series = [0, 1];
+            let new_value, old_val;
+
+            for (b = 1; b <= x - 2; b++) {
+                new_value = series[series.length - 1];
+                old_val = series[series.length - 2];
+                new_fab = new_value + old_val;
+                series.push(new_fab);
+            }
+            return series;
+        }
+        console.log(fab(20));
+
+        $(document).ready(function () {
+            $('#fib_n').on('input', call_gcd)
+            function call_gcd() {
+                if ($('#fib_n').val().replace(/^\s+|\s+$/g, "").length != 0) {
+                    let nth = $('#fib_n').val();
+                    console.log(fab(nth));
+                    let fib_ans = fab(nth);
+                    let fib_compiled = '';
+                    fib_ans.forEach((v, num) => { fib_compiled += num + 1 + 'th ' + "<span>" + v + ", " + "</span>"; });
+                    let intro = 'Your Fibonacci Series <span> ' + nth + ' </span>  is ';
+                    $('#fib_ans').html(intro + fib_compiled);
+                } else {
+                    $('#fib_ans').html("No or invalid input");
+                }
+
+            }
+
+        })
+
+    </script>
+
+    <script>
+
+        function PNB(a, b) {
+            let PNB = [];
+            let factors = [];
+            let min = Math.min(a, b);
+            let max = Math.max(a, b);
+            // console.log(min, max);
+
+            let test;
+            for (n = min; n <= max; n++) {
+                for (y = 1; y <= n; y++) {
+                    if (n % y == 0) {
+                        factors.push(y);
+                    }
+                }
+                if (factors.length == 2) {
+                    PNB.push(n);
+                }
+                factors = [];
+            }
+
+            return PNB;
+        }
+        console.log(PNB(95, 10))
+
+        $(document).ready(function () {
+            $('#min_max1').on('input', call_pnb)
+            $('#min_max2').on('input', call_pnb)
+            function call_pnb() {
+                if ($('#min_max1').val().replace(/^\s+|\s+$/g, "").length != 0 && $('#min_max2').val().replace(/^\s+|\s+$/g, "").length != 0) {
+                    let an = $('#min_max1').val();
+                    let bn = $('#min_max2').val();
+                    console.log(PNB(an, bn));
+                    let pnb_ans = PNB(an, bn);
+                    let pnb_compiled = '';
+                    let intro = 'The Prime Numbers Between <span>' + Math.min(an, bn) + ' </span> and <span>' + Math.max(an, bn) + "</span> is ";
+                    pnb_ans.forEach((pnb1, i) =>{
+                        pnb_compiled += "<span>" + pnb1 + ", " + "</span>";
+                    })
+                    $('#pnb_ans').html(intro + pnb_compiled );
+                } else {
+                    $('#pnb_ans').html("No or invalid input");
+                }
+
+            }
+
+        })
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>
