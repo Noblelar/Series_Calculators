@@ -1,0 +1,24 @@
+{
+  "name": "calculators",
+  "version": "1.0.0",
+  "description": "This is a calculator model under development",
+  "main": "index.html",
+  "scripts": {
+    "start": "npm run lite", 
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Noblelar/Series_Calculators.git"
+  },
+  "author": "Noble Ackor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Noblelar/Series_Calculators/issues"
+  },
+  "homepage": "https://github.com/Noblelar/Series_Calculators#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
